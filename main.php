@@ -9,26 +9,21 @@ if (class_exists('Memcache')) {
 
     if ($isMemcacheAvailable) {
         $aData = $memcache->get('data');
-        echo '<pre>';
         if ($aData) {
-            echo '<h2>Data from Cache:</h2>';
+            echo 'Data from Cache:';
             print_r($aData);
         } else {
-            $aData = array(
-                'me' => 'you',
-                'us' => 'them',
-            );
-            echo '<h2>Fresh Data:</h2>';
+            $aData = rand(0, 10000)
+            echo 'Fresh Data:';
             print_r($aData);
             $memcache->set('data', $aData, 0, 300);
         }
         $aData = $memcache->get('data');
         if ($aData) {
-            echo '<h3>Memcache seem to be working fine!</h3>';
+            echo 'OK';
         } else {
-            echo '<h3>Memcache DOES NOT seem to be working!</h3>';
-        }
-        echo '</pre>';
+            echo 'KO';
+        };
     }
 }
 if (!$isMemcacheAvailable) {
