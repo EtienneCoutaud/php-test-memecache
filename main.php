@@ -13,7 +13,7 @@ if (class_exists('Memcache')) {
             echo 'Data from Cache:';
             print_r($aData);
         } else {
-            $aData = rand(0, 10000)
+            $aData = rand(0, 10000);
             echo 'Fresh Data:';
             print_r($aData);
             $memcache->set('data', $aData, 0, 300);
