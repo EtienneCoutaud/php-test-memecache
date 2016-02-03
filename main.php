@@ -1,11 +1,11 @@
 <?php
 if (class_exists('Memcache')) {
-    $server = 'localhost';
+    $server = 'memcached';
     if (!empty($_REQUEST['server'])) {
         $server = $_REQUEST['server'];
     }
     $memcache = new Memcache;
-    $isMemcacheAvailable = @$memcache->connect($server);
+    $isMemcacheAvailable = $memcache->connect($server);
 
     if ($isMemcacheAvailable) {
         $aData = $memcache->get('data');
