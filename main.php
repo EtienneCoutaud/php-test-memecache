@@ -7,23 +7,22 @@ if (class_exists('Memcache')) {
     $memcache = new Memcache;
     $isMemcacheAvailable = $memcache->connect($server);
 
+    $action=$argv[1];
+
     if ($isMemcacheAvailable) {
-        $aData = $memcache->get('data');
-        if ($aData) {
-            echo 'Data from Cache:';
-            print_r($aData);
-        } else {
-            $aData = rand(0, 10000);
-            echo 'Fresh Data:';
-            print_r($aData);
-            $memcache->set('data', $aData, 0, 300);
-        }
-        $aData = $memcache->get('data');
-        if ($aData) {
-            echo 'OK';
-        } else {
-            echo 'KO';
-        };
+        if (strcmp($action, 'set') == 0)
+	{
+	  $aData = rand(0, 100000);
+	  print_r($aData);
+	  $memcache->set('data', $aData);
+	  exit(0);
+	}
+	if (strcmp($action, 'get') == 0)
+	{
+	  $aData = $memcache->get('data');
+	  print_r($aData);
+	  exit(0);
+	}
     }
 }
 if (!$isMemcacheAvailable) {
